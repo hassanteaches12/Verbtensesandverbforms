@@ -1,271 +1,87 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Verb Tenses and Verb Forms — Grammar Quiz</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Winter Grammar Quest — Verb Tenses and Verb Forms</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com"/>
 <style>
   :root{
-    --bg:#fff6ea;
-    --card:#ffffff;
-    --muted:#6b6b6b;
-    --accent:#ff8a5b;
-    --accent2:#ffd36e;
-    --accent3:#6ad3d1;
-    --paper-shadow: 0 10px 25px rgba(15,20,30,0.08);
-    --radius:14px;
-    --kid-font: "Century Gothic", "Trebuchet MS", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --bg1:#eaf6ff;
+    --bg2:#f3fbff;
+    --ice:#d9f0ff;
+    --ink:#07314a;
+    --muted:#54707f;
+    --accent:#5fb3ff;
+    --btn-grad: linear-gradient(90deg,#9fd6ff,#7fc7ff);
+    --card-shadow: 0 18px 40px rgba(6,30,44,0.06);
+    --glass: rgba(255,255,255,0.85);
+    --font-sans: system-ui,-apple-system,"Segoe UI",Roboto,Arial;
   }
-  html,body{height:100%;margin:0;}
-  body{
-    font-family:var(--kid-font);
-    background:
-      radial-gradient(circle at 10% 10%, rgba(255,138,91,0.06), transparent 10%),
-      radial-gradient(circle at 90% 85%, rgba(106,211,209,0.04), transparent 12%),
-      var(--bg);
-    color:#222;
-    padding:18px;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-
-  .viewport { display:flex;align-items:center;justify-content:center; }
-  .poster{
-    width: 1122px;
-    height: 793px;
-    box-sizing:border-box;
-    margin:0 auto;
-    background: linear-gradient(180deg,var(--card), #fff);
-    border-radius:12px;
-    padding:20px;
-    box-shadow:var(--paper-shadow);
-    border: 6px double #fff3e6;
-    overflow:auto;
-  }
-
-  header{ display:flex; gap:12px; align-items:center; margin-bottom:10px; }
-  .logo{ width:86px;height:86px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex;align-items:center;justify-content:center; }
-  .logo svg{width:56px;height:56px}
-  h1{ font-size:20px; margin:0; color:#3f3f3f; }
-  .lead{ margin:4px 0 0 0; color:var(--muted); font-size:13px }
-  .meta{ display:flex; gap:10px; margin-top:8px}
-  .meta .field{ background:#fff3e6; padding:6px 10px; border-radius:10px; font-weight:600; color:#6b3a2b; font-size:12px }
-
-  main{ margin-top:12px; display:grid; grid-template-columns: 1fr; gap:12px; }
-  .section{
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
-    border-radius:10px;
-    padding:10px;
-    box-shadow:0 6px 18px rgba(20,30,40,0.03);
-    display:grid;
-    gap:8px;
-  }
-  .section h2{ margin:0; font-size:15px; color:#2d2d2d; }
-  .question{ background:#fffaf6; border:1px solid rgba(0,0,0,0.05); border-radius:8px; padding:8px; font-size:14px; }
-  .options{ margin-top:5px; margin-left:10px; }
-  .options label{ display:block; padding:2px 0; }
-  footer{ margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:12px }
-  .small{ font-size:12px; color:var(--muted) }
-  .controls{ display:flex; gap:8px; align-items:center }
-  .btn{ background:linear-gradient(180deg,#6ad3d1,#3dbdb8); border:none; color:#043232; padding:8px 12px; border-radius:10px; font-weight:800; cursor:pointer }
-  .btn.secondary{ background:linear-gradient(180deg,#ffd36e,#ffb86b); color:#622a06 }
-  .status{ font-size:12px; color:#444 }
-  @media print{
-    body{ background:#fff; padding:0; }
-    .controls{ display:none }
-    .poster{ box-shadow:none; border-radius:0; width:100%; height:auto; padding:12mm; }
-  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:radial-gradient(circle at 10% 10%, #f6fcff, transparent 10%), linear-gradient(180deg,var(--bg1),var(--bg2));font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .scene{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;position:relative;overflow:hidden}
+  .snow {position:fixed;left:0;top:0;pointer-events:none;width:100%;height:100%;z-index:0}
+  .wrap{width:96%;max-width:980px;margin:0 auto;position:relative;z-index:2}
+  .header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+  .logo{width:84px;height:84px;border-radius:14px;background:linear-gradient(180deg,#fff,#e8f7ff);display:flex;align-items:center;justify-content:center;border:2px solid rgba(0,0,0,0.04);box-shadow:var(--card-shadow)}
+  .header h1{margin:0;font-size:22px}
+  .header p{margin:0;color:var(--muted);font-size:13px}
+  .card{background:var(--glass);backdrop-filter: blur(6px);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.6);box-shadow:var(--card-shadow)}
+  label{display:block;font-weight:700;font-size:13px;margin-bottom:6px;color:var(--ink)}
+  input[type="text"], select{padding:10px 12px;border-radius:10px;border:1px solid rgba(7,49,74,0.07);background:#fff;font-size:15px;min-width:140px}
+  .btn{background:var(--btn-grad);border-radius:10px;padding:10px 16px;border:1px solid rgba(7,49,74,0.06);font-weight:800;color:#05324a;cursor:pointer;box-shadow:0 8px 20px rgba(47,119,179,0.06)}
+  .btn.secondary{background:#fff;border:1px solid rgba(7,49,74,0.04)}
+  .q-card{margin-bottom:12px;padding:14px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#f2fbff);border:1px solid rgba(7,49,74,0.04);box-shadow:0 8px 26px rgba(6,30,44,0.04)}
+  .q-num{background:linear-gradient(180deg,#fff,#e8f7ff);padding:8px 10px;border-radius:8px;font-weight:900;color:var(--accent);min-width:46px;text-align:center;box-shadow:0 6px 18px rgba(95,179,255,0.08)}
+  .opt{padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#fbfeff,#f3fbff);cursor:pointer;border:1px solid rgba(7,49,74,0.04);font-weight:800;min-width:120px;text-align:center}
+  .opt.selected{background:linear-gradient(90deg,#dff4ff,#bfeeff);border-color:rgba(95,179,255,0.25)}
 </style>
 </head>
 <body>
-  <div class="viewport">
-    <div class="poster" id="posterRoot" role="article" aria-labelledby="title">
-      <header>
-        <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="12" width="40" height="32" rx="4" fill="#fff" opacity="0.95"/>
-            <path d="M10 14h36v8H10z" fill="#ff8a5b"/>
-            <path d="M46 14v30" stroke="#ffd36e" stroke-width="2" opacity="0.7"/>
-            <circle cx="52" cy="18" r="8" fill="#6ad3d1"/>
-            <path d="M52 13v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+  <div class="scene">
+    <div class="wrap">
+      <div class="header">
+        <div class="logo card"><span style="font-size:36px">❄️</span></div>
+        <div>
+          <h1>Winter Grammar Quest — Verb Tenses and Verb Forms</h1>
+          <p class="small">Interactive snow-themed grammar quiz</p>
         </div>
-        <div style="flex:1">
-          <h1 id="title">Verb Tenses and Verb Forms — Grammar Quiz</h1>
-          <div class="lead">Identify and use correct verb forms and tenses.</div>
-          <div class="meta">
-            <div class="field">Student Name: _________________________</div>
-            <div class="field">Date: _________________________</div>
-          </div>
-        </div>
-      </header>
+      </div>
 
-      <main>
-        <section class="section">
-          <h2>Answer each question carefully:</h2>
-
-          <div class="question">
-            <strong>Question 1:</strong> Complete the sentence in the Past Continuous Tense: Rehan was _____ (talk) on the phone.
-            <div class="options">
-              <label>A. talk</label>
-              <label>B. talked</label>
-              <label>C. talking</label>
-              <label>D. talks</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 2:</strong> Use the correct form of the verb drive (Simple Past Tense): The driver _____ the car fast.
-            <div class="options">
-              <label>A. driving</label>
-              <label>B. driven</label>
-              <label>C. drove</label>
-              <label>D. drives</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 3:</strong> Which sentence uses the verb run in the Past Continuous Tense?
-            <div class="options">
-              <label>A. The children run in the park.</label>
-              <label>B. The children ran in the park.</label>
-              <label>C. The children were running in the park.</label>
-              <label>D. The children have run in the park.</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 4:</strong> Complete the sentence using the Simple Past form of sleep: Yesterday, I _____ (sleep) in the class.
-            <div class="options">
-              <label>A. sleep</label>
-              <label>B. slept</label>
-              <label>C. sleeping</label>
-              <label>D. have slept</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 5:</strong> What is the Simple Past form of the verb break?
-            <div class="options">
-              <label>A. Broken</label>
-              <label>B. Broke</label>
-              <label>C. Breaking</label>
-              <label>D. Breaked</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 6:</strong> What is the Past Participle form of the verb eat?
-            <div class="options">
-              <label>A. Ate</label>
-              <label>B. Eating</label>
-              <label>C. Eaten</label>
-              <label>D. Eat</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 7:</strong> A verb form that ends in -ing (e.g., planting, coming) is called a:
-            <div class="options">
-              <label>A. Past Tense</label>
-              <label>B. Present Participle</label>
-              <label>C. Infinitive</label>
-              <label>D. Past Participle</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 8:</strong> Which sentence correctly uses a Past Participle?
-            <div class="options">
-              <label>A. I saw some men planting trees. (Present Participle)</label>
-              <label>B. The bus coming up the road was late. (Present Participle)</label>
-              <label>C. Loved by their mother, the children were happy.</label>
-              <label>D. The police caught the running thief. (Present Participle)</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 9:</strong> Complete the sentence in the correct Simple Past Tense: I _____ (finish) the painting all by myself.
-            <div class="options">
-              <label>A. finished</label>
-              <label>B. finish</label>
-              <label>C. finishing</label>
-              <label>D. had finished</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <strong>Question 10:</strong> What is the Past Participle form of the verb send?
-            <div class="options">
-              <label>A. Sended</label>
-              <label>B. Sent</label>
-              <label>C. Sending</label>
-              <label>D. Sand</label>
-            </div>
-          </div>
-
-        </section>
-      </main>
-
-      <footer>
-        <div class="small">Tip: Print this quiz or download as a PDF for submission.</div>
-        <div class="controls">
-          <div class="status" id="status">Ready</div>
-          <button class="btn" id="downloadPdf">Download as PDF</button>
-          <button class="btn secondary" id="printBtn">Print</button>
-        </div>
-      </footer>
+      <section id="quiz-container" class="card">
+        <div id="quiz"></div>
+      </section>
     </div>
   </div>
 
 <script>
-(function(){
-  const downloadBtn = document.getElementById('downloadPdf');
-  const printBtn = document.getElementById('printBtn');
-  const status = document.getElementById('status');
-  const poster = document.getElementById('posterRoot');
+const quizData = [
+  {question:"Question 1: Complete the sentence in the Past Continuous Tense: Rehan was _____ (talk) on the phone.", options:["A. talk","B. talked","C. talking","D. talks"], correct:2},
+  {question:"Question 2: Use the correct form of the verb drive (Simple Past Tense): The driver _____ the car fast.", options:["A. driving","B. driven","C. drove","D. drives"], correct:2},
+  {question:"Question 3: Which sentence uses the verb run in the Past Continuous Tense?", options:["A. The children run in the park.","B. The children ran in the park.","C. The children were running in the park.","D. The children have run in the park."], correct:2},
+  {question:"Question 4: Complete the sentence using the Simple Past form of sleep: Yesterday, I _____ (sleep) in the class.", options:["A. sleep","B. slept","C. sleeping","D. have slept"], correct:1},
+  {question:"Question 5: What is the Simple Past form of the verb break?", options:["A. Broken","B. Broke","C. Breaking","D. Breaked"], correct:1},
+  {question:"Question 6: What is the Past Participle form of the verb eat?", options:["A. Ate","B. Eating","C. Eaten","D. Eat"], correct:2},
+  {question:"Question 7: A verb form that ends in -ing (e.g., planting, coming) is called a:", options:["A. Past Tense","B. Present Participle","C. Infinitive","D. Past Participle"], correct:1},
+  {question:"Question 8: Which sentence correctly uses a Past Participle?", options:["A. I saw some men planting trees.","B. The bus coming up the road was late.","C. Loved by their mother, the children were happy.","D. The police caught the running thief."], correct:2},
+  {question:"Question 9: Complete the sentence in the correct Simple Past Tense: I _____ (finish) the painting all by myself.", options:["A. finished","B. finish","C. finishing","D. had finished"], correct:0},
+  {question:"Question 10: What is the Past Participle form of the verb send?", options:["A. Sended","B. Sent","C. Sending","D. Sand"], correct:1}
+];
 
-  function setStatus(text){ status.textContent = text; }
-
-  printBtn.addEventListener('click', () => window.print());
-
-  downloadBtn.addEventListener('click', async () => {
-    setStatus('Preparing PDF…');
-    if(window.html2pdf) return makePdf();
-    try {
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
-      setStatus('Generating PDF...');
-      setTimeout(makePdf, 200);
-    } catch (err){
-      console.error(err);
-      setStatus('PDF failed — using print.');
-      window.print();
-    }
+const quizContainer = document.getElementById("quiz");
+quizData.forEach((q,i)=>{
+  const card=document.createElement("div"); card.className="q-card";
+  const num=document.createElement("div"); num.className="q-num"; num.textContent=i+1;
+  const text=document.createElement("div"); text.innerHTML="<strong>"+q.question+"</strong>";
+  card.appendChild(num); card.appendChild(text);
+  q.options.forEach((opt,idx)=>{
+    const b=document.createElement("div"); b.className="opt"; b.textContent=opt;
+    b.onclick=()=>{b.parentNode.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected")); b.classList.add("selected");};
+    card.appendChild(b);
   });
-
-  function makePdf(){
-    const opt = {
-      margin:[8,8,8,8],
-      filename:'Verb-Tenses-Quiz.pdf',
-      image:{type:'jpeg',quality:0.98},
-      html2canvas:{scale:2,useCORS:true},
-      jsPDF:{unit:'mm',format:'a4',orientation:'landscape'}
-    };
-    const clone = poster.cloneNode(true);
-    const controls = clone.querySelector('.controls');
-    if(controls) controls.remove();
-    clone.style.background='#fff';
-    window.html2pdf().set(opt).from(clone).save().then(()=>setStatus('Saved!')).catch(()=>window.print());
-  }
-
-  function loadScript(src){
-    return new Promise((resolve,reject)=>{
-      const s=document.createElement('script');
-      s.src=src; s.onload=()=>resolve(); s.onerror=()=>reject();
-      document.head.appendChild(s);
-    });
-  }
-})();
+  quizContainer.appendChild(card);
+});
 </script>
 </body>
 </html>
