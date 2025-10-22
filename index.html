@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Winter Grammar Quest — Verb Tenses and Verb Forms</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com"/>
+<style>
+/* same CSS as before — unchanged */
+:root{
+  --bg1:#eaf6ff;--bg2:#f3fbff;--ice:#d9f0ff;--ink:#07314a;--muted:#54707f;
+  --accent:#5fb3ff;--btn-grad:linear-gradient(90deg,#9fd6ff,#7fc7ff);
+  --card-shadow:0 18px 40px rgba(6,30,44,0.06);
+  --glass:rgba(255,255,255,0.85);
+  --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:radial-gradient(circle at 10% 10%,#f6fcff,transparent 10%),linear-gradient(180deg,var(--bg1),var(--bg2));font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+.scene{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;position:relative;overflow:hidden}
+.snow{position:fixed;left:0;top:0;pointer-events:none;width:100%;height:100%;z-index:0}
+.wrap{width:96%;max-width:980px;margin:0 auto;position:relative;z-index:2}
+.header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.logo{width:84px;height:84px;border-radius:14px;background:linear-gradient(180deg,#fff,#e8f7ff);display:flex;align-items:center;justify-content:center;border:2px solid rgba(0,0,0,0.04);box-shadow:var(--card-shadow)}
+.header h1{margin:0;font-size:22px}
+.header p{margin:0;color:var(--muted);font-size:13px}
+.card{background:var(--glass);backdrop-filter:blur(6px);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.6);box-shadow:var(--card-shadow)}
+label{display:block;font-weight:700;font-size:13px;margin-bottom:6px;color:var(--ink)}
+input[type="text"],select{padding:10px 12px;border-radius:10px;border:1px solid rgba(7,49,74,0.07);background:#fff;font-size:15px}
+.btn{background:var(--btn-grad);border-radius:10px;padding:10px 16px;border:1px solid rgba(7,49,74,0.06);font-weight:800;color:#05324a;cursor:pointer}
+.opt{padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#fbfeff,#f3fbff);cursor:pointer;border:1px solid rgba(7,49,74,0.04);font-weight:800;min-width:120px;text-align:center}
+.opt:hover{transform:translateY(-4px)}
+.q-card{margin-bottom:12px;padding:14px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#f2fbff)}
+.q-num{background:linear-gradient(180deg,#fff,#e8f7ff);padding:8px 10px;border-radius:8px;font-weight:900;color:var(--accent);min-width:46px;text-align:center}
+.small{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="scene">
+<canvas class="snow" id="snow-canvas"></canvas>
+<div class="wrap">
+<div class="header">
+<div class="logo card" aria-hidden="true">📘</div>
+<div>
+<h1>❄️ Winter Grammar Quest — Verb Tenses & Verb Forms</h1>
+<p class="small">Click one option per question – see your snow-score at the end!</p>
+</div>
+</div>
+
+<section id="student-info-container" class="card">
+<h2>🧭 Student Info</h2>
+<form id="student-info-form">
+<label>Name <input id="name" required></label>
+<label>Roll No <input id="roll" required></label>
+<label>Class <select id="class" required><option value="">Select</option><option>Grade 5</option></select></label>
+<label>Section <input id="section" required></label>
+<button type="submit" class="btn">Start Quiz ❄️</button>
+</form>
+</section>
+
+<section id="quiz-container" style="display:none" class="card">
+<h2>📖 Quiz: Verb Tenses and Verb Forms</h2>
+<div id="quiz"></div>
+<button class="btn" onclick="submitQuiz()">Submit Answers</button>
+</section>
+
+<section id="results-container" style="display:none" class="card">
+<h2>🎉 Results</h2>
+<div id="score-text"></div>
+<div id="answers-review"></div>
+<button class="btn" onclick="restartQuiz()">Try Again</button>
+</section>
+</div>
+</div>
+
+<script>
+/* ==== REPLACED QUIZ QUESTIONS ==== */
+const quizData = [
+ {question:"Question 1: Complete the sentence in the Past Continuous Tense — Rehan was _____ (talk) on the phone.",options:["talk","talked","talking","talks"],correct:2,explain:"Past Continuous = was + verb-ing → ‘was talking’."},
+ {question:"Question 2: Use the correct form of the verb drive (Simple Past Tense) — The driver _____ the car fast.",options:["driving","driven","drove","drives"],correct:2,explain:"Simple Past of drive is ‘drove’."},
+ {question:"Question 3: Which sentence uses the verb run in the Past Continuous Tense?",options:["The children run in the park.","The children ran in the park.","The children were running in the park.","The children have run in the park."],correct:2,explain:"Past Continuous → ‘were running’."},
+ {question:"Question 4: Complete the sentence (Simple Past form of sleep) — Yesterday I _____ (sleep) in the class.",options:["sleep","slept","sleeping","have slept"],correct:1,explain:"Simple Past of sleep is ‘slept’."},
+ {question:"Question 5: What is the Simple Past form of the verb break?",options:["Broken","Broke","Breaking","Breaked"],correct:1,explain:"Simple Past = ‘broke’."},
+ {question:"Question 6: What is the Past Participle form of the verb eat?",options:["Ate","Eating","Eaten","Eat"],correct:2,explain:"Past Participle of eat is ‘eaten’."},
+ {question:"Question 7: A verb form that ends in -ing (e.g., planting, coming) is called a _____.",options:["Past Tense","Present Participle","Infinitive","Past Participle"],correct:1,explain:"-ing form = Present Participle."},
+ {question:"Question 8: Which sentence correctly uses a Past Participle?",options:["I saw some men planting trees.","The bus coming up the road was late.","Loved by their mother, the children were happy.","The police caught the running thief."],correct:2,explain:"‘Loved’ is Past Participle used as adjective."},
+ {question:"Question 9: Complete the sentence (Simple Past Tense) — I _____ (finish) the painting all by myself.",options:["finished","finish","finishing","had finished"],correct:0,explain:"Simple Past = ‘finished’."},
+ {question:"Question 10: What is the Past Participle form of the verb send?",options:["Sended","Sent","Sending","Sand"],correct:1,explain:"Past Participle of send is ‘sent’."}
+];
+
+/* ==== STATE ==== */
+let answers = new Array(quizData.length).fill(null);
+
+/* ==== START ==== */
+document.getElementById("student-info-form").addEventListener("submit",e=>{
+ e.preventDefault();
+ document.getElementById("student-info-container").style.display="none";
+ document.getElementById("quiz-container").style.display="block";
+ renderQuiz();
+});
+
+function renderQuiz(){
+ const qDiv=document.getElementById("quiz"); qDiv.innerHTML="";
+ quizData.forEach((q,i)=>{
+   const card=document.createElement("div");card.className="q-card";
+   card.innerHTML=`<div class='q-num'>${i+1}</div><div class='q-text'><b>${q.question}</b></div>`;
+   const opts=document.createElement("div");
+   q.options.forEach((opt,idx)=>{
+     const o=document.createElement("div");o.className="opt";o.textContent=opt;
+     o.onclick=()=>{answers[i]=idx;[...opts.children].forEach(x=>x.classList.remove("selected"));o.classList.add("selected");};
+     opts.appendChild(o);
+   });
+   card.appendChild(opts);
+   qDiv.appendChild(card);
+ });
+}
+
+function submitQuiz(){
+ let score=0,html="<ol>";
+ quizData.forEach((q,i)=>{
+   const user=answers[i];
+   const correctText=q.options[q.correct];
+   const userText=user==null?"Not answered":q.options[user];
+   const ok=user===q.correct; if(ok)score++;
+   html+=`<li><b>${q.question}</b><br>Your answer: ${userText} → ${ok?"✅":"❌"}<br>Correct: ${correctText}<br><small>${q.explain}</small></li>`;
+ });
+ html+="</ol>";
+ document.getElementById("quiz-container").style.display="none";
+ const res=document.getElementById("results-container");res.style.display="block";
+ document.getElementById("score-text").textContent=`Score: ${score} / ${quizData.length}`;
+ document.getElementById("answers-review").innerHTML=html;
+}
+
+function restartQuiz(){
+ answers=new Array(quizData.length).fill(null);
+ document.getElementById("results-container").style.display="none";
+ document.getElementById("student-info-container").style.display="block";
+}
+</script>
+</body>
+</html>
